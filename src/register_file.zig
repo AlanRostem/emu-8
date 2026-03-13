@@ -1,4 +1,5 @@
 const t = @import("typedef.zig");
+
 const RegisterFile = struct {
     general_purpose_registers: t.Byte[0x10],
     index_register: t.Word,
@@ -8,3 +9,7 @@ const RegisterFile = struct {
     sound_timer_register: t.Byte,
     current_operand: t.Word,
 };
+
+
+
+

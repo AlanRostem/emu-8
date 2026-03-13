@@ -1,4 +1,4 @@
-const MAX_MEMORY_SIZE: i32 = 4096;
+const MAX_MEMORY_SIZE: i32 = 0x1000;
 
 pub const Memory = struct {
     data: [MAX_MEMORY_SIZE]u8,

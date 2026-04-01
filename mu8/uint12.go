@@ -1,5 +1,7 @@
 package mu8
 
+import "fmt"
+
 const Uint12Max = 0x1000
 
 type Uint12 struct {
@@ -24,3 +26,9 @@ func (u *Uint12) Value() uint {
 func (u *Uint12) Set(value uint) {
 	u.value = uint16(value % Uint12Max)
 }
+
+func (u *Uint12) String() string {
+	return fmt.Sprintf("0x%04X", u.value)
+}
+
+var _ fmt.Stringer = (*Uint12)(nil)

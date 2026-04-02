@@ -19,9 +19,9 @@ func ldVxByte(nibbles [MaxNibbles]uint8, sys *system.System) {
 func ldIAddr(nibbles [MaxNibbles]uint8, sys *system.System) {
 	addr := mu8.DByte(0)
 	// TODO: verify if this concatenation is correct
-	n0 := mu8.DByte(nibbles[0]) << 3 * 4
-	n1 := mu8.DByte(nibbles[1]) << 2 * 4
-	n2 := mu8.DByte(nibbles[2]) << 1 * 4
+	n0 := mu8.DByte(nibbles[0]) << 2 * 4
+	n1 := mu8.DByte(nibbles[1]) << 1 * 4
+	n2 := mu8.DByte(nibbles[2]) << 0 * 4
 	addr = addr & n0
 	addr = addr & n1
 	addr = addr & n2

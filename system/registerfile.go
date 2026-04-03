@@ -1,4 +1,4 @@
-package cpu
+package system
 
 import "github.com/AlanRostem/mu-8/mu8"
 

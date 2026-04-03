@@ -8,20 +8,54 @@ type Argument struct {
 	Value          uint16
 }
 
-type DecodeInfo struct {
-	Class     Class  // First nibble which is can be the same for several opcodes
-	Idenitity uint16 // Usually the last few nibbles of the opcode
-	Args      []uint16
+type Info struct {
+	Class          Class     // First nibble which is can be the same for several opcodes
+	Idenitity      mu8.DByte // Usually the last few nibbles of the opcode
+	Args           []mu8.DByte
+	SingleIdentity bool
 }
 
-func Decode(instruction mu8.DByte) DecodeInfo {
+func class0Decoded(instruction mu8.DByte) Info {
+	identity := instruction & 0xFFF
+	const CLS = mu8.DByte(0x0E0)
+	const RET = mu8.DByte(0x0EE)
+	// jump wont be implemented (I think)
+	isJump := identity != CLS && identity != RET
+	return Info{
+		Class:          Class0,
+		Args:           make([]mu8.DByte, 0),
+		SingleIdentity: isJump,
+		Idenitity:      identity,
+	}
+}
+
+func Decode(instruction mu8.DByte) Info {
 	nibbles := instruction.GetNibbles()
 	class := Class(nibbles[0])
-	// classInfo := Classes[class]
-	// for i, argSize := range classInfo.Args {
-	// 	nibIdx := i + 1
-	// }
-	return DecodeInfo{
-		Class: class,
+	if class == Class0 {
+		return class0Decoded(instruction)
+	}
+	classInfo := allClasses[class]
+	argValues := make([]mu8.DByte, 0)
+	for i, argSize := range classInfo.Args {
+		nibIdx := uint8(i + 1)
+		argVal := mu8.DByte(0)
+		for j := range argSize {
+			argVal.AppendNibble(nibbles[nibIdx+j])
+		}
+		argValues = append(argValues, argVal)
+	}
+	identity := mu8.DByte(0)
+	if classInfo.IdentitySize != IdentitySizeNone {
+		nibIdx := 4 - classInfo.IdentitySize
+		for j := range classInfo.IdentitySize {
+			identity.AppendNibble(nibbles[nibIdx-j])
+		}
+	}
+	return Info{
+		Class:          class,
+		Args:           argValues,
+		Idenitity:      identity,
+		SingleIdentity: classInfo.IdentitySize != IdentitySizeNone,
 	}
 }

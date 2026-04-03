@@ -41,7 +41,7 @@ type ClassInfo struct {
 }
 
 // Class0 is omitted since it is a special case
-var Classes = map[Class]ClassInfo{
+var allClasses = map[Class]ClassInfo{
 	Class1: {Args: []uint8{3}, IdentitySize: IdentitySizeNone},
 	Class2: {Args: []uint8{3}, IdentitySize: IdentitySizeNone},
 	Class3: {Args: []uint8{1, 2}, IdentitySize: IdentitySizeNone},

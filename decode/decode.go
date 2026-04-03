@@ -47,9 +47,12 @@ func Decode(instruction mu8.DByte) Info {
 	}
 	identity := mu8.DByte(0)
 	if classInfo.IdentitySize != IdentitySizeNone {
-		nibIdx := 4 - classInfo.IdentitySize
-		for j := range classInfo.IdentitySize {
-			identity.AppendNibble(nibbles[nibIdx-j])
+		nibsToAppend := make([]uint8, 0)
+		for i := range classInfo.IdentitySize {
+			nibsToAppend = append(nibsToAppend, nibbles[3-i])
+		}
+		for i := range nibsToAppend {
+			identity.AppendNibble(nibsToAppend[len(nibsToAppend)-i-1])
 		}
 	}
 	return Info{

@@ -10,7 +10,7 @@ func newInstructionTable() instructionTable {
 	return make(map[mu8.DByte]Instruction)
 }
 
-func NewSingularInstructionMap(inst Instruction) instructionTable {
+func newSingularInstructionTable(inst Instruction) instructionTable {
 	return map[mu8.DByte]Instruction{singleInstKey: inst}
 }
 

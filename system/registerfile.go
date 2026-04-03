@@ -14,7 +14,7 @@ type RegisterFile struct {
 	CurrentOperand mu8.DByte
 }
 
-func NewRegisterFile() *RegisterFile {
+func newRegisterFile() *RegisterFile {
 	return &RegisterFile{
 		GeneralPurpose: [generalPurposeRegisterCount]mu8.Byte{},
 	}

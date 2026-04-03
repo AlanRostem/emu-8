@@ -2,11 +2,11 @@ package instruction
 
 import "github.com/AlanRostem/mu-8/decode"
 
-var TableClass6 = NewSingularInstructionMap(ldVxByte)
-var TableClassA = NewSingularInstructionMap(ldIAddr)
+var tableClass6 = NewSingularInstructionMap(ldVxByte)
+var tableClassA = NewSingularInstructionMap(ldIAddr)
 
-// TableAll contains instruction maps mapped to a class number.
-var TableAll = map[decode.Class]InstructionTable{
-	decode.Class6: TableClass6,
-	decode.ClassA: TableClassA,
+// tableAll contains instruction maps mapped to a class number.
+var tableAll = map[decode.Class]instructionTable{
+	decode.Class6: tableClass6,
+	decode.ClassA: tableClassA,
 }

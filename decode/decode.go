@@ -15,14 +15,12 @@ type DecodeInfo struct {
 }
 
 func Decode(instruction mu8.DByte) DecodeInfo {
-	nibbles := [4]uint8{}
-	for i := range uint8(4) {
-		// TODO check if this ordering makes sense
-		nibbles[4-i] = instruction.Nibble(i)
-	}
+	nibbles := instruction.GetNibbles()
 	class := Class(nibbles[0])
 	// classInfo := Classes[class]
-	// TODO finish implementation
+	// for i, argSize := range classInfo.Args {
+	// 	nibIdx := i + 1
+	// }
 	return DecodeInfo{
 		Class: class,
 	}

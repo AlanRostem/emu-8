@@ -1,4 +1,4 @@
-package cli
+package display
 
 import (
 	"image/color"
@@ -15,8 +15,8 @@ func NewWindow() *Window {
 	return &Window{}
 }
 
-func (w *Window) SetPixel(x, y uint8, black bool) {
-	w.pixels[y][x] = black
+func (w *Window) SetPixel(x, y uint8, white bool) {
+	w.pixels[y][x] = white
 }
 
 func (w *Window) Run() {
@@ -32,12 +32,12 @@ func (w *Window) Update() error {
 }
 
 func (w *Window) Draw(screen *ebiten.Image) {
-	screen.Fill(color.White)
+	screen.Fill(color.Black)
 	for y := range 32 {
 		for x := range 64 {
-			c := color.White
+			c := color.Black
 			if w.pixels[y][x] {
-				c = color.Black
+				c = color.White
 			}
 			screen.Set(x, y, c)
 		}
